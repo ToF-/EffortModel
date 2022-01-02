@@ -4,15 +4,15 @@ module Model
 import MatrixMult 
 
 etpfET :: [[Double]]
-etpfET = [[1.0, 0.0, 0.0, 0.1]
+etpfET = [[1.0, 0.0, 1.0, 0.0]
          ,[0.5, 0.0, 0.0, 0.0]
          ,[0.01,0.0, 0.0, 0.0]
          ,[0.0, 0.0, 1.0, 0.0]]
 
 etpfCF :: [[Double]]
-etpfCF = [[1.0, 0.0, 0.0, 0.1]
+etpfCF = [[1.0, 0.0, 1.0, 0.0]
          ,[0.0, 0.0, 0.0, 0.0]
-         ,[0.9, 0.0, 0.0, 0.0]
+         ,[0.5, 0.0, 0.0, 0.0]
          ,[0.0, 0.0, 1.0, 0.0]]
 initial = [1.0, 0.0, 0.0, 0.0]
 
@@ -24,5 +24,8 @@ iterationN n v m = let
 iterations :: Num a => Int -> [a] -> [[a]] -> [[a]]
 iterations n v m = let fs = take n (iterate (`mmult` m) m) in map (\mi -> v `vmult` mi) fs 
 
+rounded :: Double -> Double
+rounded = (/100) . fromIntegral. round . (100.0 *)
+
 total :: [Double] -> Double
-total [e,t,p,f] = (fromIntegral (round ((e + t + f) * 100))) / 100
+total [e,t,p,f] = rounded (e + t)

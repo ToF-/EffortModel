@@ -12,7 +12,7 @@ main = do
     let ets = map total $ iterations n initial etpfET
     let cfs =  map total $ iterations n initial etpfCF
     print ets
-    print $ sum ets
+    print $ rounded $ sum ets
     print cfs
-    print $ sum cfs
+    print $ rounded $ sum cfs
 
